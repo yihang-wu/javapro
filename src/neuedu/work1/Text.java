@@ -9,11 +9,14 @@ public class Text {
     public static List<Mybook> list= new ArrayList<>();//定义一个类集合
     public static void main(String[] args) {
             inputdata(list);//把list传进去     把书放进去
+            print(list);
 //            searchName(list,"0");
-            addName(list);
-        print(list);
+            //addName(list);
+        //print(list);
     }
+    //接口
     public static void  inputdata(List<Mybook> books){
+            System.out.println("请输入有多少本书");
             Scanner scanner=new Scanner(System.in);
             int n =scanner.nextInt();//自己输入多少本书
             for (int i=1;i<=n;i++){
@@ -27,7 +30,7 @@ public class Text {
             }
     }
     //查找功能
-    public static void searchName(List<Mybook> books,String name){
+    /*public static void searchName(List<Mybook> books,String name){
             for (int i=0;i<books.size();i++){
                 //字符串的比较用equlals方法
                 Mybook mybook=books.get(i);
@@ -63,5 +66,5 @@ public class Text {
         System.out.println("输入版号");
         String bookISBL =scanner.next();
         Mybook mybook=new Mybook(name,price,press,auther,bookISBL);
-    }
+    }*/
 }
