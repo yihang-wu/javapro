@@ -7,31 +7,6 @@ import java.util.*;
 public class Text2 implements Serializable{
     private static final long serialVersionUID = 1;
     public static void main(String[] args) {
-        File file =new File("F:\\QQ\\QQ消息文件\\2858995857\\FileRecv\\狼人杀发牌器.txt");
-        InputStream inputStream = null;
-        ObjectInputStream objectInputStream=null;
-        try {
-            inputStream = new FileInputStream(file);
-            objectInputStream = new ObjectInputStream(inputStream);
-            //(Student)强转
-            Student student=(Student) objectInputStream.readObject();
-            System.out.println(student);//默认的输出to string方法里的
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (objectInputStream!=null)
-                    objectInputStream.close();
-                if (inputStream!=null)
-                    inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         /**
          * 狼人杀发牌器
          * 游戏人数  12~~18范围之内
