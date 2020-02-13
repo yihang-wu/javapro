@@ -1,6 +1,9 @@
 package neuedu.text;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String name;
     private Integer age;
@@ -35,5 +38,15 @@ public class Student {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", grade='" + grade + '\'' +
+                '}';
     }
 }

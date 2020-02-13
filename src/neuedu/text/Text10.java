@@ -101,8 +101,8 @@ public class Text10 {
                 }
             }
         }*/
-
-        Reader reader = null;//作用域
+//         字符输入流
+    /*    Reader reader = null;//作用域
         BufferedReader br = null;
         //后进先出 BufferedReader 要先关掉
         try {
@@ -131,6 +131,23 @@ public class Text10 {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        }*/
+        //字符输出流
+        Writer writer=null;
+        try {
+            writer =new FileWriter(file,true);
+            writer.write("\neqwr");
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (writer!=null){
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
