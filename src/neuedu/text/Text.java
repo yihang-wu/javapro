@@ -1,5 +1,7 @@
 package neuedu.text;
 
+import neuedu.web.AnlimalWeb;
+
 public class Text {
     public static void main(String[] args) {
        /* Dog d1 = new Dog();
@@ -30,7 +32,12 @@ public class Text {
             sum=sum+i;
         }
         System.out.println(sum);*/
-
+        /**
+         * 分层开发
+         * */
+        AnlimalWeb anlimalWeb = new AnlimalWeb();
+        anlimalWeb.showmain();
+        anlimalWeb.input();
     }
 
 }
