@@ -1,6 +1,7 @@
 package neuedu.dao;
 
 import neuedu.pojo.Anlimal;
+import neuedu.util.JdbcUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -65,8 +66,14 @@ public class AnlimalDao implements IanlimalDao {
 
     @Override
     public int add(Anlimal anlimal) {
-        int i = 0;
-        try {
+//        String sql = "insert into anlimal(name,age,sex)values(?,?,?)";
+        //?,?,?传到数组里
+//        Object[] params = {anlimal.getName(),anlimal.getAge(),anlimal.getSex()};
+        int i = JdbcUtil.executeUpdate("insert into anlimal(name,age,sex)values(?,?,?)",anlimal.getName(),anlimal.getAge(),anlimal.getSex());
+        return i;
+        /*
+            int i=0;
+            try {
             //加载驱动
             Class.forName("com.mysql.jdbc.Driver");
             //创建链接
@@ -98,12 +105,17 @@ public class AnlimalDao implements IanlimalDao {
                 e.printStackTrace();
             }
         }
-        return i;
+        return i;*/
+
     }
 
     @Override
     public int update(Anlimal anlimal) {
-        int i = 0;
+//        String sql = "update anlimal set name=?,age=?,sex=? where id=?";
+//        Object[] params = {anlimal.getName(),anlimal.getAge(),anlimal.getSex(),anlimal.getId()};
+        int i = JdbcUtil.executeUpdate("update anlimal set name=?,age=?,sex=? where id=?",anlimal.getName(),anlimal.getAge(),anlimal.getSex(),anlimal.getId());
+        return i;
+        /*int i = 0;
         try {
             //加载驱动
             Class.forName("com.mysql.jdbc.Driver");
@@ -137,12 +149,16 @@ public class AnlimalDao implements IanlimalDao {
                 e.printStackTrace();
             }
         }
-        return i;
+        return i;*/
     }
 
     @Override
     public int del(int id) {
-        int i = 0;
+//        String sql = "delete from anlimal where id=?";
+//        Object[] params ={id};
+        int i = JdbcUtil.executeUpdate("delete from anlimal where id=?",id);
+        return i;
+        /*int i = 0;
         try {
             //加载驱动
             Class.forName("com.mysql.jdbc.Driver");
@@ -173,7 +189,7 @@ public class AnlimalDao implements IanlimalDao {
                 e.printStackTrace();
             }
         }
-        return i;
+        return i;*/
     }
 
     @Override

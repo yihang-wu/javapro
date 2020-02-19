@@ -1,6 +1,13 @@
 package neuedu.text;
 
+import neuedu.pojo.Anlimal;
+import neuedu.pojo.Dept;
+import neuedu.util.JdbcUtil;
+import neuedu.util.MyArry;
 import neuedu.web.AnlimalWeb;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 public class Text {
     public static void main(String[] args) {
@@ -35,9 +42,57 @@ public class Text {
         /**
          * 分层开发
          * */
-        AnlimalWeb anlimalWeb = new AnlimalWeb();
+     /*   AnlimalWeb anlimalWeb = new AnlimalWeb();
         anlimalWeb.showmain();
-        anlimalWeb.input();
+        anlimalWeb.input();*/
+        /**
+         * 动态参数
+         * int arry[]={1,2,3,4,5,6,7};
+         * System.out.println(JdbcUtil.add(arry));
+         * */
+        /*
+        * 自定义泛型
+        * MyArry<Integer> myArry= new MyArry();
+          myArry.add();
+        * class类也是泛型类
+        * */
+        /**
+         * 类在第一次使用的时候  会把class加载到  我们内存的方法区中
+         * 并且在堆区中创建一个Class对象   指向到该方法区
+         * 反射    就是  我们要获取的  那个Class类型的对象
+         * 获取该对象的方法
+         *         1.类名.class
+         *              Class clz = Animal.class;
+         *         2.对象名.getClass()
+         *              nimal animal =new Animal();
+         *             Class clz2 = animal.getClass();
+         *         3.Class.forName("类的完全限定名")
+         *              Class clz3 = Class.forName("neuedu.pojo.Anlimal");
+         * */
+        /*
+        * 类下 每一个方法都会封装成  Method类型的对象
+        * 类下 每一个属性都会封装成  Field类型的对象
+        * 有多少个属性就有多少个Field，有多少个方法就有多少个Method
+        * 实际上Field 和 Method 是数组
+        *   Class clz = Animal.class;
+        Field[] fields = clz.getDeclaredFields();
+        for (Field f:fields){
+            System.out.println(f.getName());
+        }
+        * */
+       //调用 该类的无参构造，创建一个对象 clz.newInstance();
+//        List<Anlimal> list = JdbcUtil.executeQuerry("select id,name,age,sex from anlimal",Anlimal.class);
+        Class clz = Anlimal.class;
+        /**
+         * 注解：
+         * 在反射过程中
+         * 为了让 类 属性 方法 等实现某种特定功能 而诞生的
+         * 写法：@注解名(注解值) 注解值可以有一个或多个
+         * 如何定义一个注解     注解就是  @接口
+         *
+         * */
+        List<Dept> list = JdbcUtil.executeQuerry("select deptno,dname,loc from dept", Dept.class);
+        System.out.println(list);
     }
 
 }

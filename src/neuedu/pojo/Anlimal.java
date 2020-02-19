@@ -57,10 +57,10 @@ public class Anlimal {
     @Override
     public String toString() {
         return "Anlimal{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", age=" + age +
                 ", sex=" + sex +
-                ", id=" + id +
                 '}';
     }
 }
