@@ -4,9 +4,12 @@ import neuedu.pojo.Anlimal;
 import neuedu.pojo.Dept;
 import neuedu.util.JdbcUtil;
 import neuedu.util.MyArry;
+import neuedu.util.RowMap;
 import neuedu.web.AnlimalWeb;
 
 import java.lang.reflect.Field;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Text {
@@ -91,7 +94,40 @@ public class Text {
          * 如何定义一个注解     注解就是  @接口
          *
          * */
+       /* 方法一
+
         List<Dept> list = JdbcUtil.executeQuerry("select deptno,dname,loc from dept", Dept.class);
+        System.out.println(list);*/
+       //方法二
+        //传接口-接口实现类-匿名内部类
+     /*   List<Dept> list = JdbcUtil.exectueQuerry("select deptno,dname,loc from dept", new RowMap<Dept>() {
+            //new 接口  要直接实现接口里的方法
+            @Override
+            public Dept rowMaping(ResultSet resultSet) {
+                //查那个表，就创建那个对象
+                Dept dept = new Dept();
+                try {
+                    dept.setDeptno(resultSet.getInt("deptno"));
+                    dept.setDname(resultSet.getString("dname"));
+                    dept.setLocl(resultSet.getString("loc"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return dept;
+            }
+        });*/
+//            lambda表达式写法
+            List<Dept> list = JdbcUtil.exectueQuerry("select deptno,dname,loc from dept", (resultSet)-> {
+                Dept dept = new Dept();
+                try {
+                    dept.setDeptno(resultSet.getInt("deptno"));
+                    dept.setDname(resultSet.getString("dname"));
+                    dept.setLocl(resultSet.getString("loc"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return dept;
+        });
         System.out.println(list);
     }
 

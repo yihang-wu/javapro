@@ -1,5 +1,8 @@
 package neuedu.util;
 
+import neuedu.pojo.Anlimal;
+import neuedu.pojo.Dept;
+
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class JdbcUtil {
         }
         return connection;
     }
-    //封装通用的增删改
+    //封装通用的增删改    返回值是int 受影响的行数
     //不确定个数，用集合或数组
     //如果没有占位符，传  null
     //Object...动态参数 ，调用的时候可以简化
@@ -124,7 +127,41 @@ public class JdbcUtil {
         }
         return list;
     }
-
+    //封装通用查询方法二  List的泛型是什么类型 就放一个什么类型的对象
+    public static <T>List<T> exectueQuerry(String sql,RowMap<T> rowMap,Object...params){
+        List<T> list = new ArrayList<>();
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            if (params!=null){
+                for (int i=0;i<params.length;i++){
+                    preparedStatement.setObject(i+1,params[i]);
+                }
+            }
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                //不同的表对resultSet的处理方式不同
+                //对象不同，属性值不同
+                //不同的表，不同的对象，用ResultSet 赋不同的值
+                //就是把对 resultSet的处理方式（代码块）作为参数传递
+                // rowMap.rowMaping(resultSet);返回的就是  T  所以用 T接收
+               T t = rowMap.rowMaping(resultSet);
+               list.add(t);
+               /*
+                伪代码
+                Anlimal anlimal = new Anlimal();
+                anlimal.setId(resultSet.getInt("id"));
+                list.add(anlimal);*/
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            close(connection,preparedStatement,resultSet);
+        }
+        return list;
+    }
     //增删改查都需要关闭，所以  封装关闭方法
     static void close(Connection connection,PreparedStatement preparedStatement){
         try {
